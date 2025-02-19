@@ -27,7 +27,7 @@ plt.axis("off")
 plt.title("Word Cloud - Spam Messages")
 plt.savefig("plots/wordcloud_spam.png")
 plt.close()
-print("✅ Word Cloud - Spam Message ploatted ad saved as plots/wordcloud_spam.png")
+print("✅ Word Cloud - Spam Message plotted ad saved as plots/wordcloud_spam.png")
 
 plt.figure(figsize=(12, 6))
 plt.imshow(ham_wc)
@@ -35,14 +35,14 @@ plt.axis("off")
 plt.title("Word Cloud - Non-Spam Messages")
 plt.savefig("plots/wordcloud_ham.png")
 plt.close()
-print("✅ Word Cloud - Non-Spam Message ploatted ad saved as plots/wordcloud_ham.png")
+print("✅ Word Cloud - Non-Spam Message plotted ad saved as plots/wordcloud_ham.png")
 
 
 # Generate Pairplot to Identify Relationship Between Features
 sns.pairplot(df[['countCharacters', 'countWords', 'countSentences', 'label']], hue="label")
 plt.savefig("plots/pairplot.png")
 plt.close()
-print("✅ Pair ploatted and saved as plots/pairplot.png ")
+print("✅ Pair plotted and saved as plots/pairplot.png ")
 
 
 # Correlation Matrix and Heatmap
@@ -52,7 +52,7 @@ sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f")
 plt.title("Feature Correlation Heatmap")
 plt.savefig("plots/heatmap.png")
 plt.close()
-print("✅ Heatmap ploatted and saved as plots/heatmap.png")
+print("✅ Heatmap plotted and saved as plots/heatmap.png")
 
 # Generate Pie Chart for the data distribution 
 plt.figure(figsize=(8, 8))
@@ -60,6 +60,6 @@ plt.pie(df['label'].value_counts(), labels=['NOT SPAM', 'SPAM'], autopct='%0.2f%
 plt.title("Distribution of Spam and Non-Spam Messages")
 plt.savefig("plots/pie_chart.png")
 plt.close()
-print("✅ Pi-Chart ploatted and saved as plots/pie_chart.png")
+print("✅ Pi-Chart plotted and saved as plots/pie_chart.png")
 
-print("✅✅ All ploatting completed!")
+print("✅✅ All plotting completed!")
