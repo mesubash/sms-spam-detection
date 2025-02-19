@@ -10,3 +10,4 @@ joblib
 fastapi
 uvicorn
 streamlit
+datasets
