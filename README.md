@@ -42,7 +42,18 @@ sms-spam-detection/
 ```
 
 ---
-### Data Distribution
+
+## 📊 Dataset
+
+The dataset used for this project consists of SMS messages labeled as either "spam" or "ham" (not spam). The dataset is a combination of multiple sources, including:
+
+- `dataset.csv`
+- `enron_spam_data.csv`
+- `sms.tsv`
+
+---
+
+### 📈 Data Distribution
 
 Here is the distribution of spam and non-spam messages in the dataset:
 
