@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Define the API endpoint
-API_URL = "http://localhost:8000/predict"
+API_URL = "http://api:8000/predict"
 
 # Streamlit app
 st.title("SMS Spam Detection")
