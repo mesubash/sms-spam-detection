@@ -42,6 +42,15 @@ sms-spam-detection/
 ```
 
 ---
+### Data Distribution
+
+Here is the distribution of spam and non-spam messages in the dataset:
+
+![Data Distribution](plots/pie_chart.png)
+
+The pie chart shows the proportion of spam and non-spam messages in the dataset.
+
+---
 
 ## 🛠️ Setup Instructions
 
