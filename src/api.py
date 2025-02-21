@@ -47,7 +47,7 @@ def predict(input_data: TextInput):
         
         # Make prediction
         prediction = model.predict(text_pad)
-        result = "SPAM" if prediction > 0.5 else "NOT SPAM"
+        result = "SPAM" if prediction > 0.6 else "NOT SPAM"
         
         # Return the result
         return {
