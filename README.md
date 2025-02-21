@@ -26,7 +26,7 @@ sms-spam-detection/
 │   ├── sms_spam_model.h5 # Trained Bi-LSTM model
 │   ├── tfidf_vectorizer.pkl # TF-IDF vectorizer
 │   ├── tokenizer.pkl     # Tokenizer for LSTM model
-├── notebooks/            # Jupyter notebooks for EDA and training
+├── notebooks/            # Jupyter(Goole Colab) notebooks for EDA and training
 ├── plots/                # Generated data visualization plots
 ├── src/                  # Source code directory
 │   ├── data_preprocessing.py  # Data preprocessing script

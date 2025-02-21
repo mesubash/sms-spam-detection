@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_curve, auc, precision_recall_curve, average_precision_score
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras import layers
@@ -10,6 +10,11 @@ from tensorflow.keras.layers import Bidirectional, LSTM, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 import tensorflow as tf
 import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+
 
 # Load preprocessed data
 df = pd.read_csv("data/merged_spam_ham.csv")
@@ -89,14 +94,56 @@ history = model.fit(
     callbacks=[early_stopping]
 )
 
-y_test_pred_lstm = (model.predict(X_test_pad) > 0.3).astype(int)
+y_test_pred_lstm = (model.predict(X_test_pad) > 0.6).astype(int)
 print("LSTM Test Set Performance:")
 print(f"Accuracy: {accuracy_score(y_test, y_test_pred_lstm):.4f}")
 print(f"Precision: {precision_score(y_test, y_test_pred_lstm):.4f}")
 print(f"Recall: {recall_score(y_test, y_test_pred_lstm):.4f}")
 print(f"F1 Score: {f1_score(y_test, y_test_pred_lstm):.4f}")
 
-# Save models and vectorizers
-model.save("models/sms_spam_model.h5")
-joblib.dump(vectorizer, "models/tfidf_vectorizer.pkl")
-joblib.dump(tokenizer, "models/tokenizer.pkl")
+
+
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_test_pred_lstm)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=['Spam', 'Not Spam'], yticklabels=['Spam', 'Not Spam'])
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.savefig("plots/confusion_matrix.png")
+plt.show()
+plt.close()
+print("✅ Confusion Matrix plotted and saved as plots/confusion_matrix.png")
+
+# ROC Curve
+y_test_pred_proba = model.predict(X_test_pad)
+fpr, tpr, thresholds = roc_curve(y_test, y_test_pred_proba)
+roc_auc = auc(fpr, tpr)
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc="lower right")
+plt.savefig("plots/roc_curve.png")
+plt.show()
+plt.close()
+print("✅ ROC Curve plotted and saved as plots/roc_curve.png")
+
+# Precision-Recall Curve
+precision, recall, _ = precision_recall_curve(y_test, y_test_pred_proba)
+average_precision = average_precision_score(y_test, y_test_pred_proba)
+
+plt.figure(figsize=(8, 6))
+plt.plot(recall, precision, color='b', lw=2, label=f'Precision-Recall curve (area = {average_precision:.2f})')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc="lower left")
+plt.savefig("plots/precision_recall_curve.png")
+plt.show()
+plt.close()
+print("✅ Precision-Recall Curve plotted and saved as plots/precision_recall_curve.png")
