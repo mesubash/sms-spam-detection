@@ -13,11 +13,28 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import os  
+import sys  
 
+# Ensure the 'data/' directory exists
+if not os.path.exists("data"):
+    print("❌ Error: The 'data/' folder does not exist.")
+    print("Please run 'data_preprocessing.py' first.")
+    sys.exit(1)  # Exit the script with an error code
 
+# Ensure the 'plots/' directory exists
+if not os.path.exists("plots"):
+    os.makedirs("plots")
+    print("✅ Created 'plots/' directory")
 
 # Load preprocessed data
-df = pd.read_csv("data/merged_spam_ham.csv")
+try:
+    df = pd.read_csv("data/merged_spam_ham.csv")
+    print("✅ Dataset import completed!")
+except FileNotFoundError:
+    print("❌ Error: 'data/merged_spam_ham.csv' not found.")
+    print("Please ensure 'data_preprocessing.py' has been run successfully.")
+    sys.exit(1)  # Exit the script with an error code
 
 # Split the dataset into train (80%), validation (10%), and test (10%)
 print(f"Total dataset size: {len(df)}")
@@ -100,8 +117,6 @@ print(f"Accuracy: {accuracy_score(y_test, y_test_pred_lstm):.4f}")
 print(f"Precision: {precision_score(y_test, y_test_pred_lstm):.4f}")
 print(f"Recall: {recall_score(y_test, y_test_pred_lstm):.4f}")
 print(f"F1 Score: {f1_score(y_test, y_test_pred_lstm):.4f}")
-
-
 
 # Confusion Matrix
 cm = confusion_matrix(y_test, y_test_pred_lstm)

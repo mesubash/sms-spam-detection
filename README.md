@@ -42,6 +42,7 @@ sms-spam-detection/
 ```
 
 ---
+  ### There is no need to  create the directories like data/ models/ as they will be created auto on script run. So follow the sequence of the run below in the setup instructions and you will get they
 
 ## 📊 Dataset
 

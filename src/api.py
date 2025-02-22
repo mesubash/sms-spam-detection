@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import joblib
 import re
+import sys
 
 # Define the custom AttentionLayer
 class AttentionLayer(tf.keras.layers.Layer):
@@ -15,9 +16,18 @@ class AttentionLayer(tf.keras.layers.Layer):
         return inputs * score
 
 # Load the model and tokenizer
-with tf.keras.utils.custom_object_scope({'AttentionLayer': AttentionLayer}):
-    model = load_model("models/sms_spam_model.h5")
-tokenizer = joblib.load("models/tokenizer.pkl")
+# Load preprocessed data
+try:
+    with tf.keras.utils.custom_object_scope({'AttentionLayer': AttentionLayer}):
+        model = load_model("models/sms_spam_model.h5")
+        tokenizer = joblib.load("models/tokenizer.pkl")
+        print("✅ Model and Tokenizer import completed!")
+except FileNotFoundError:
+    print("❌ Error: 'models/sms_spam_model.h5 or tokenizer.pkl not found.")
+    print("Please ensure 'model is trained with model_training.py' has been run successfully.")
+    sys.exit(1)  # Exit the script with an error code
+
+
 
 # Define the maximum sequence length
 MAX_LEN = 100

@@ -3,16 +3,36 @@ import nltk
 import matplotlib.pyplot as plt
 import seaborn as sns
 from wordcloud import WordCloud
+import os  # Import the os module
+import sys  # Import the sys module for exiting the script
+
+# Ensure the 'data/' directory exists
+if not os.path.exists("data"):
+    print("❌ Error: The 'data/' folder does not exist.")
+    print("Please run the following scripts in order:")
+    print("1. data_preprocessing.py")
+    print("2. model_training.py")
+    print("3. This script (plot_generation.py)")
+    sys.exit(1)  # Exit the script with an error code
+
+# Ensure the 'plots/' directory exists
+if not os.path.exists("plots"):
+    os.makedirs("plots")
+    print("✅ Created 'plots/' directory")
 
 # Load preprocessed data
-df = pd.read_csv("data/merged_spam_ham.csv")
-print("✅ Dataset import completed !")
+try:
+    df = pd.read_csv("data/merged_spam_ham.csv")
+    print("✅ Dataset import completed!")
+except FileNotFoundError:
+    print("❌ Error: 'data/merged_spam_ham.csv' not found.")
+    print("Please ensure 'data_preprocessing.py' has been run successfully.")
+    sys.exit(1)  # Exit the script with an error code
 
 # Create new features
 df['countCharacters'] = df['message'].apply(len)
 df['countWords'] = df['message'].apply(lambda i: len(nltk.word_tokenize(i)))
 df['countSentences'] = df['message'].apply(lambda i: len(nltk.sent_tokenize(i)))
-
 
 # Generate Word Clouds
 spam_text = df[df['label'] == 1]['cleaned_message'].str.cat(sep=" ")
@@ -27,7 +47,7 @@ plt.axis("off")
 plt.title("Word Cloud - Spam Messages")
 plt.savefig("plots/wordcloud_spam.png")
 plt.close()
-print("✅ Word Cloud - Spam Message plotted ad saved as plots/wordcloud_spam.png")
+print("✅ Word Cloud - Spam Message plotted and saved as plots/wordcloud_spam.png")
 
 plt.figure(figsize=(12, 6))
 plt.imshow(ham_wc)
@@ -35,15 +55,13 @@ plt.axis("off")
 plt.title("Word Cloud - Non-Spam Messages")
 plt.savefig("plots/wordcloud_ham.png")
 plt.close()
-print("✅ Word Cloud - Non-Spam Message plotted ad saved as plots/wordcloud_ham.png")
-
+print("✅ Word Cloud - Non-Spam Message plotted and saved as plots/wordcloud_ham.png")
 
 # Generate Pairplot to Identify Relationship Between Features
 sns.pairplot(df[['countCharacters', 'countWords', 'countSentences', 'label']], hue="label")
 plt.savefig("plots/pairplot.png")
 plt.close()
-print("✅ Pair plotted and saved as plots/pairplot.png ")
-
+print("✅ Pairplot plotted and saved as plots/pairplot.png")
 
 # Correlation Matrix and Heatmap
 corr_matrix = df[['countCharacters', 'countWords', 'countSentences', 'label']].corr()
@@ -54,12 +72,12 @@ plt.savefig("plots/heatmap.png")
 plt.close()
 print("✅ Heatmap plotted and saved as plots/heatmap.png")
 
-# Generate Pie Chart for the data distribution 
+# Generate Pie Chart for the data distribution
 plt.figure(figsize=(8, 8))
 plt.pie(df['label'].value_counts(), labels=['NOT SPAM', 'SPAM'], autopct='%0.2f%%', radius=0.8)
 plt.title("Distribution of Spam and Non-Spam Messages")
 plt.savefig("plots/pie_chart.png")
 plt.close()
-print("✅ Pi-Chart plotted and saved as plots/pie_chart.png")
+print("✅ Pie Chart plotted and saved as plots/pie_chart.png")
 
 print("✅✅ All plotting completed!")
