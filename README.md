@@ -86,7 +86,7 @@ python --version
 ### **2️⃣ Clone the Repository**
 
 ```sh
-git clone https://github.com/your-username/sms-spam-detection.git
+git clone git@github.com:mesubash/sms-spam-detection.git (SSH)
 cd sms-spam-detection
 ```
 
@@ -195,7 +195,7 @@ The Bi-LSTM model achieved the following metrics on the test set:
 | Model          | Accuracy | Precision | Recall | F1 Score |
 | -------------- | -------- | --------- | ------ | -------- |
 | Naive Bayes    | 92.3%    | 85.4%     | 96.1%  | 90.4%    |
-| Bi-LSTM + Attn | 94.1%    | 87.8%     | 97.1%  | 92.2%    |
+| Bi-LSTM + Attn | 95.67%   | 95.54%    | 92.25% | 93.86%   |
 
 ---
 
