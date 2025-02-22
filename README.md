@@ -86,7 +86,7 @@ python --version
 ### **2️⃣ Clone the Repository**
 
 ```sh
-git clone git@github.com:mesubash/sms-spam-detection.git (SSH)
+git clone git@github.com:mesubash/sms-spam-detection.git #SSH
 cd sms-spam-detection
 ```
 
