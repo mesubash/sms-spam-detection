@@ -16,6 +16,10 @@ import numpy as np
 import os  
 import sys  
 
+# Ensure the models directory exists to save the trained models
+os.makedirs("models", exist_ok=True)
+print("✅ Created 'models' directory")
+
 # Ensure the 'data/' directory exists
 if not os.path.exists("data"):
     print("❌ Error: The 'data/' folder does not exist.")
@@ -117,6 +121,11 @@ print(f"Accuracy: {accuracy_score(y_test, y_test_pred_lstm):.4f}")
 print(f"Precision: {precision_score(y_test, y_test_pred_lstm):.4f}")
 print(f"Recall: {recall_score(y_test, y_test_pred_lstm):.4f}")
 print(f"F1 Score: {f1_score(y_test, y_test_pred_lstm):.4f}")
+
+# Save models and vectorizers
+model.save("models/sms_spam_model.h5")
+joblib.dump(vectorizer, "models/tfidf_vectorizer.pkl")
+joblib.dump(tokenizer, "models/tokenizer.pkl")
 
 # Confusion Matrix
 cm = confusion_matrix(y_test, y_test_pred_lstm)
