@@ -185,6 +185,7 @@ docker-compose up
 ```
 
 - The **FastAPI backend** will run on `http://localhost:8000`
+- The **FastAPI backend documentation** can be accessed on `http://localhost:8000/docs`
 - The **Streamlit frontend** will be accessible at `http://localhost:8501`
 
 To stop services, press `Ctrl+C` or run:
