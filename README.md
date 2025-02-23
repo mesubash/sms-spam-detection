@@ -42,7 +42,7 @@ sms-spam-detection/
 ```
 
 ---
-  ### There is no need to  create the directories like data/ models/ as they will be created auto on script run. So follow the sequence of the run below in the setup instructions and you will get those directories auto.
+  ### You will not see the directories like data/ models/ on clone as they are added in .gitignore to manage the storage. There is no need to  create the directories like data/ models/ manually by yourself as they will be created auto on script run. So follow the sequence of the run below in the setup instructions and you will get those directories auto.
 
 ## 📊 Dataset
 
@@ -142,7 +142,7 @@ This will:
 ## 🚀 Running the Application
 
 ### **1️⃣ Run the FastAPI Backend**
-
+Note: You can direcly to docker part skipping these steps.
 ```sh
 cd src
 uvicorn api:app --host 0.0.0.0 --port 8000 --reload
@@ -165,6 +165,12 @@ This will open a web interface to test the spam detection model.
 ---
 
 ## 🐳 Running with Docker
+
+### Ensure you are logged in with docker
+
+```sh
+docker login
+```
 
 ### **1️⃣ Build Docker Images**
 
@@ -195,8 +201,8 @@ The Bi-LSTM model achieved the following metrics on the test set:
 
 | Model          | Accuracy | Precision | Recall | F1 Score |
 | -------------- | -------- | --------- | ------ | -------- |
-| Naive Bayes    | 92.3%    | 85.4%     | 96.1%  | 90.4%    |
-| Bi-LSTM + Attn | 95.67%   | 95.54%    | 92.25% | 93.86%   |
+| Naive Bayes    | 91.21%   | 93.44%    | 88.09% | 91.62%   |
+| Bi-LSTM + Attn | 96.45%   | 95.78%    | 92.27% | 95.02%   |
 
 ---
 
