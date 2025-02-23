@@ -28,6 +28,15 @@ except FileNotFoundError:
     print("❌ Error: 'data/merged_spam_ham.csv' not found.")
     print("Please ensure 'data_preprocessing.py' has been run successfully.")
     sys.exit(1)  # Exit the script with an error code
+    
+    
+# Calculate the number of spam and ham messages
+label_counts = df['label'].value_counts()
+num_ham = label_counts[0]  # Assuming 0 is the label for ham
+num_spam = label_counts[1]  # Assuming 1 is the label for spam
+
+print(f"Number of ham messages: {num_ham}")
+print(f"Number of spam messages: {num_spam}")
 
 # Create new features
 df['countCharacters'] = df['message'].apply(len)
@@ -74,10 +83,11 @@ print("✅ Heatmap plotted and saved as plots/heatmap.png")
 
 # Generate Pie Chart for the data distribution
 plt.figure(figsize=(8, 8))
-plt.pie(df['label'].value_counts(), labels=['NOT SPAM', 'SPAM'], autopct='%0.2f%%', radius=0.8)
+plt.pie(label_counts, labels=['NOT SPAM', 'SPAM'], autopct='%0.2f%%', startangle=90, colors=['#66b3ff','#ff9999'])
 plt.title("Distribution of Spam and Non-Spam Messages")
 plt.savefig("plots/pie_chart.png")
 plt.close()
 print("✅ Pie Chart plotted and saved as plots/pie_chart.png")
+
 
 print("✅✅ All plotting completed!")

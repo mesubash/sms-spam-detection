@@ -15,6 +15,12 @@ import seaborn as sns
 import numpy as np
 import os  
 import sys  
+import random
+
+# Set random seeds for reproducibility
+np.random.seed(42)
+tf.random.set_seed(42)
+random.seed(42)
 
 # Ensure the models directory exists to save the trained models
 os.makedirs("models", exist_ok=True)
@@ -171,3 +177,26 @@ plt.savefig("plots/precision_recall_curve.png")
 plt.show()
 plt.close()
 print("✅ Precision-Recall Curve plotted and saved as plots/precision_recall_curve.png")
+
+# Training and Validation Loss/Accuracy Curves
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('Model Loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper right')
+
+plt.subplot(1, 2, 2)
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('Model Accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+
+plt.savefig("plots/training_validation_curves.png")
+plt.show()
+plt.close()
+print("✅ Training and validation curves plotted and saved as plots/training_validation_curves.png")

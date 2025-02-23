@@ -201,8 +201,8 @@ The Bi-LSTM model achieved the following metrics on the test set:
 
 | Model          | Accuracy | Precision | Recall | F1 Score |
 | -------------- | -------- | --------- | ------ | -------- |
-| Naive Bayes    | 91.21%   | 93.44%    | 88.09% | 91.62%   |
-| Bi-LSTM + Attn | 96.45%   | 95.78%    | 92.27% | 95.02%   |
+| Naive Bayes    | 94.21%   | 95.44%    | 88.09% | 91.62%   |
+| Bi-LSTM + Attn | 95.77%   | 95.78%    | 93.01% | 94.05%   |
 
 ---
 
