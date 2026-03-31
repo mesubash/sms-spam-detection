@@ -9,5 +9,5 @@ seaborn==0.13.2
 joblib==1.4.2
 fastapi==0.115.8
 uvicorn==0.34.0
-streamlit==1.42.1
+streamlit==1.54.0
 datasets==3.3.1
